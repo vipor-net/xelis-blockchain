@@ -45,6 +45,14 @@ impl<'a> MinerWork<'a> {
         }
     }
 
+    pub fn print_values(&self) {
+        println!("header_work_hash: {:?}", self.header_work_hash);
+        println!("timestamp: {:?}", self.timestamp);
+        println!("nonce: {:?}", self.nonce);
+        println!("miner: {:?}", self.miner);
+        println!("extra_nonce: {:?}", self.extra_nonce);
+    }
+    
     pub fn from_block(header: BlockHeader) -> Self {
         Self {
             header_work_hash: header.get_work_hash(),
@@ -171,3 +179,19 @@ impl<'a> Serializer for MinerWork<'a> {
 
 // no need to override hash() as its already serialized in good format
 impl Hashable for MinerWork<'_> {}
+
+// #[cfg(test)]
+// mod tests {
+//     use indexmap::IndexSet;
+//     use crate::{crypto::{Hash, Hashable, KeyPair}, serializer::Serializer};
+//     use super::MinerWork;
+//     #[test]
+//     fn test_block_template_from_hex() {
+//         let serialized = "00000000000000eab80000018f3662cc0300000000000000002163911437e8860308689873ad09ef32ea1e679d7dfa34ad49fd03bf0597636f01822b17bd3aae2766e83f603458ce155b103d4d766e1fb35c5c349aa0cfe00c530001cb58c67d2aaf2ad04cec0cb8d3296dfaae828c3d0620b9437856e1e4f9bc206d7e40899c7bcc885fad6dd3bdc68fa73141c1d8b917a1f399afeb1fb191376b16".to_owned();
+//         let header = MinerWork::from_hex(serialized.clone()).unwrap();
+//         print!("Miner {:?}", header.miner);
+//         print!("Tips Count {:?}", header.get_tips().len());
+//         print!("Tx Count: {:?}", header.get_txs_count());
+//         assert!(header.to_hex() == serialized);
+//     }
+// }

@@ -434,6 +434,8 @@ fn start_thread(id: u16, mut job_receiver: broadcast::Receiver<ThreadNotificatio
                     // compute the reference hash for easier finding of the block
                     let block_hash = job.hash();
                     info!("Thread #{}: block {} found at height {} with difficulty {}", id, block_hash, height, format_difficulty(difficulty_from_hash(&hash)));
+                    info!("PoW Hash: #{}", hash);
+                    job.print_values();
                     if let Err(_) = block_sender.blocking_send(job) {
                         error!("Mining Thread #{}: error while sending block found with hash {}", id, block_hash);
                         continue 'main;

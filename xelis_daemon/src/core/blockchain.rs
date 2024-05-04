@@ -504,6 +504,10 @@ impl<S: Storage> Blockchain<S> {
             hash = header.get_pow_hash()?;
         }
 
+        info!("PoW Hash: {}", hash );
+        info!("Block Template: {}", header.to_hex() );
+        info!("Block Header: {}", header );
+        
         let block = self.build_block_from_header(Immutable::Owned(header)).await?;
         let block_height = block.get_height();
         info!("Mined a new block {} at height {}", hash, block_height);
