@@ -474,7 +474,10 @@ async fn submit_block<S: Storage>(context: &Context, body: Value) -> Result<Valu
 
     let block = blockchain.build_block_from_header(Immutable::Owned(header)).await.context("Error while building block from header")?;
     blockchain.add_new_block(block, true, true).await.context("Error while adding new block to chain")?;
-    Ok(json!(true))
+    match params.return_block {
+        Some(true) => Ok(json!(block)),
+        _ => Ok(json!(true)),
+    }
 }
 
 async fn get_balance<S: Storage>(context: &Context, body: Value) -> Result<Value, InternalRpcError> {

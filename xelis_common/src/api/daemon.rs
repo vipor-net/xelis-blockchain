@@ -156,7 +156,9 @@ pub struct SubmitBlockParams {
     // hex: represent the BlockHeader (Block)
     pub block_template: String,
     // optional miner work to apply to the block template
-    pub miner_work: Option<String>
+    pub miner_work: Option<String>,
+    // return block object if true
+    pub return_block: Option<bool>,
 }
 
 #[derive(Serialize, Deserialize)]
